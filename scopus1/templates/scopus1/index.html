@@ -22,27 +22,26 @@
         <ul class="list-group " >
 
 
+        {%for p in authors %}
 
-            {%for p in authors%}
-               {% if p.staff_member %}
                 {% if forloop.first %}
                     <li data-rel='1' class="list-group-item  active" >
-                        {{p.f_name}} {{p.m_name}} {{p.l_name}}
+                        {{p.f_name }} {{p.m_name }} {{p.l_name }}
                     </li>
                 {% else %}
                     <li data-rel='{{forloop.counter}}' class="list-group-item " >
-                        {{p.f_name}} {{p.m_name}} {{p.l_name}}
+                        {{p.f_name }} {{p.m_name }} {{p.l_name }}
                     </li>
                 {% endif %}
-              {% endif %}
-           {% endfor %}
+
+         {% endfor %}
         </ul>
       </div >
       <div class="col-md-9 rounded" style="overflow:scroll; height: 550px;">
           <h3 >Список научных трудов и изобретений</h3>
 
 
-          {% for person in authored %}
+          {% for author in authors %}
                      <section >
                             <button  class="btn btn-info " style="float: right" onclick="myFunction({{forloop.counter}})">Click me</button>
                         <table class="table">
@@ -57,18 +56,19 @@
                                </tr>
                            </thead>
                            <tbody id="ty_{{forloop.counter}}">
-                {% for pa in paper %}
-                   {%if pa.id == person.id %}
+                {% for pa in authored %}
+                   {%if pa.author == author%}
                      {% if pa.unread %}
                            <tr >
                      {% else %}
                            <tr bgcolor="#c0c0c0" >
                      {% endif %}
                                <td> {{forloop.counter}}</td>
-                               <td>{{pa.title}}</td>
-                               <td>{{pa.p_type}}</td>
-                               <td>{{pa.description}}</td>
-                               <td>{{pa.num_pages}}</td>
+                               <td>{{pa.p_title.title }}</td>
+                               <td>{{pa.p_title.p_type }}</td>
+                               <td>{{pa.p_title.description}}</td>
+                               <td>{{pa.p_title.num_pages}}</td>
+                               <td></td>
                            </tr>
 
 
@@ -92,6 +92,9 @@
       </div>
   </div>
 </div>
+{% for pa in authored %}
+<p>{{pa.p_title.p_type }} </p>
+{%endfor%}
 {% else %} <h4>Empty Database </h4>
 {% endif %}
  {% endblock %}
