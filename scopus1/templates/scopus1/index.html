@@ -21,16 +21,17 @@
         <ul class="list-group " >
 
         {%for p in authors %}
+            {%if p.staff_member %}
                 {% if forloop.first %}
                     <li data-rel='1' class="list-group-item  active" >
-                        {{p.f_name }} {{p.m_name }} {{p.l_name }}
+                        {{p }}
                     </li>
                 {% else %}
                     <li data-rel='{{forloop.counter}}' class="list-group-item " >
-                        {{p.f_name }} {{p.m_name }} {{p.l_name }}
+                        {{p }}
                     </li>
                 {% endif %}
-
+            {% endif %}
          {% endfor %}
         </ul>
       </div >
