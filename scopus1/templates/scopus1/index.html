@@ -38,8 +38,8 @@
       <div class="col-md-9 rounded" style="overflow:scroll; height: 550px;">
           <h3 >Список научных трудов и изобретений</h3>
 
-
-          {% for author in authors %}
+      {% regroup authored1 by author as  authored_group %}
+          {% for author_group in authored_group %}
                      <section >
                             <button  class="btn btn-info " style="float: right" onclick="myFunction({{forloop.counter}})">Click me</button>
                         <table class="table">
@@ -53,13 +53,13 @@
                                    <th>Фамилия соавторов работы</th>
                                </tr>
                            </thead>
-                           <tbody id="ty_{{forloop.counter}}">
-                {% for pa in authored %}
-                   {%if pa.author == author%}
-                     {% if pa.unread %}
-                           <tr >
+                           <tbody >
+              {% with n=forloop.counter %}
+                {% for pa in author_group.list %}
+                     {% if pa.p_title.unread %}
+                           <tr   class="ty_{{n}}" bgcolor ="red" >
                      {% else %}
-                           <tr bgcolor="#c0c0c0" >
+                           <tr >
                      {% endif %}
                                <td> {{forloop.counter}}</td>
                                <td>{{pa.p_title.title }}</td>
@@ -75,10 +75,12 @@
                                    {% endfor %}
                                </td>
                            </tr>
-                   {% endif %}
+
+
                 {% empty %}
                             <li>Sorry, no athletes in this list.</li>
                 {% endfor %}
+              {% endwith %}
                            </tbody>
                         </table>
                      </section>
@@ -105,7 +107,7 @@
 
 
 function myFunction(pos) {
-   $('#ty_'+pos).css('background', '#c0c0c0');}
+   $('.ty_'+pos).css('background-color', '#ffffff');}
 
 </script>
 {% endblock %}
