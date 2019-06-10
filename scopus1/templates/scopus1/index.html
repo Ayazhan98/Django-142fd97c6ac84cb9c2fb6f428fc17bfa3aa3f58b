@@ -68,15 +68,13 @@
                                <td>{{pa.p_title.num_pages}}</td>
                                <td>{% for a in authored  %}
                                      {% if a.p_title.title == pa.p_title.title %}
-                                       {% if a.author != author %}
+                                       {% if a.author != author_group.grouper %}
                                         {{a.author}}
                                        {% endif %}
                                      {% endif %}
                                    {% endfor %}
                                </td>
                            </tr>
-
-
                 {% empty %}
                             <li>Sorry, no athletes in this list.</li>
                 {% endfor %}
